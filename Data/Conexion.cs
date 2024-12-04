@@ -10,6 +10,7 @@ namespace Data
     {
       
             public static string cn = ConfigurationManager.ConnectionStrings["cadena"].ToString();
+
         
     }
 }
