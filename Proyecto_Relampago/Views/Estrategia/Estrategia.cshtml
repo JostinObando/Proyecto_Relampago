@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejes Estratégicos - Gráficas y Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #3B82F6;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        .table-container {
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+            table th, table td {
+                border: 1px solid #ddd;
+                padding: 0.8rem;
+                text-align: left;
+            }
+
+            table th {
+                background-color: #3B82F6;
+                color: white;
+            }
+
+            table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+        .chart-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Ejes Estratégicos</h1>
+    </header>
+    <main>
+        <!-- Tabla de ejes estratégicos -->
+        <div class="table-container">
+            <h2>Datos de los Ejes Estratégicos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Eje</th>
+                        <th>Nombre del Eje Estratégico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Eje 1 Desarrollo Humano</td></tr>
+                    <tr><td>2</td><td>Eje 2 Vida estudiantil y excelencia del servicio</td></tr>
+                    <tr><td>3</td><td>Eje 3 Desarrollo académico e investigación</td></tr>
+                    <tr><td>4</td><td>Eje 4 Extensión y acción social</td></tr>
+                    <tr><td>5</td><td>Eje 5 Alianzas y articulaciones</td></tr>
+                    <tr><td>6</td><td>Eje transversal</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Gráfica -->
+        <div class="chart-container">
+            <h2>Gráfica de Ejes Estratégicos</h2>
+            <canvas id="ejesChart"></canvas>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Datos para la gráfica
+        const data = {
+            labels: [
+                'Eje 1 Desarrollo Humano',
+                'Eje 2 Vida estudiantil y excelencia del servicio',
+                'Eje 3 Desarrollo académico e investigación',
+                'Eje 4 Extensión y acción social',
+                'Eje 5 Alianzas y articulaciones',
+                'Eje transversal'
+            ],
+            datasets: [{
+                label: 'Ejes Estratégicos',
+                data: [25, 30, 20, 15, 10, 12], // Ejemplo de valores
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(201, 203, 207, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(201, 203, 207, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // Configuración de la gráfica
+        const config = {
+            type: 'bar', // Cambia a 'pie' o 'line' si deseas otro estilo
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' unidades';
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Crear la gráfica
+        const ejesChart = new Chart(
+            document.getElementById('ejesChart'),
+            config
+        );
+    </script>
+</body>
+</html>

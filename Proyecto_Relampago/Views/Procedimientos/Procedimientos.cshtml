@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procedimientos - Gráficas y Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #FF6F61;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        .table-container {
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+            table th, table td {
+                border: 1px solid #ddd;
+                padding: 0.8rem;
+                text-align: left;
+            }
+
+            table th {
+                background-color: #FF6F61;
+                color: white;
+            }
+
+            table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+        .chart-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Procedimientos</h1>
+    </header>
+    <main>
+        <!-- Tabla de Procedimientos -->
+        <div class="table-container">
+            <h2>Datos de Procedimientos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Eje</th>
+                        <th>ID Área</th>
+                        <th>ID Dependencia</th>
+                        <th>Tipo Procedimiento</th>
+                        <th>Estado</th>
+                        <th>Teletrabajado</th>
+                        <th>ID Macroproceso</th>
+                        <th>ID Eje Estratégico</th>
+                        <th>Tipo Documento</th>
+                        <th>Nombre Procedimiento</th>
+                        <th>Apoyo Tecnológico</th>
+                        <th>Año Actualización</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>2</td><td>3</td><td>1</td><td>No Crítico</td><td>No oficializado</td><td>SÍ</td><td>1</td><td>3</td><td>Procedimiento</td><td>Procedimiento de Resolución alterna de conflictos</td><td>No</td><td>NULL</td></tr>
+                    <tr><td>1</td><td>4</td><td>2</td><td>Crítico</td><td>Oficializado</td><td>NO</td><td>1</td><td>3</td><td>Procedimiento</td><td>Procedimiento de Gestión de Asistencia</td><td>Sí</td><td>2019</td></tr>
+                    <tr><td>1</td><td>4</td><td>2</td><td>Crítico</td><td>No oficializado</td><td>NO</td><td>1</td><td>3</td><td>Procedimiento</td><td>Procedimiento de apreciación del desempeño</td><td>Sí</td><td>NULL</td></tr>
+                    <tr><td>1</td><td>4</td><td>2</td><td>Crítico</td><td>Oficializado</td><td>NO</td><td>1</td><td>3</td><td>Procedimiento</td><td>Procedimiento para Capacitación del personal</td><td>No</td><td>2023</td></tr>
+                    <tr><td>1</td><td>4</td><td>2</td><td>Crítico</td><td>Oficializado</td><td>NO</td><td>1</td><td>3</td><td>Procedimiento</td><td>Procedimiento de Reclutamiento y Selección de Personal</td><td>Sí</td><td>2016</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Gráfica -->
+        <div class="chart-container">
+            <h2>Gráfica de Procedimientos</h2>
+            <canvas id="procedimientosChart"></canvas>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Datos para la gráfica
+        const data = {
+            labels: [
+                'Resolución de conflictos',
+                'Gestión de Asistencia',
+                'Apreciación del desempeño',
+                'Capacitación del personal',
+                'Reclutamiento y Selección'
+            ],
+            datasets: [{
+                label: 'Años de Actualización',
+                data: [0, 2019, 0, 2023, 2016], // NULL se representa como 0
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // Configuración de la gráfica
+        const config = {
+            type: 'bar', // Cambia a 'pie' o 'line' si prefieres otro estilo
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + (tooltipItem.raw || 'Sin dato');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Año de Actualización'
+                        }
+                    }
+                }
+            }
+        };
+
+        // Crear la gráfica
+        const procedimientosChart = new Chart(
+            document.getElementById('procedimientosChart'),
+            config
+        );
+    </script>
+</body>
+</html>

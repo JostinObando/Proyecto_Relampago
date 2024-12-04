@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áreas - Gráficas y Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        .table-container {
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+            table th, table td {
+                border: 1px solid #ddd;
+                padding: 0.8rem;
+                text-align: left;
+            }
+
+            table th {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+        .chart-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Áreas Institucionales</h1>
+    </header>
+    <main>
+        <!-- Tabla de datos -->
+        <div class="table-container">
+            <h2>Datos de Áreas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Área</th>
+                        <th>Nombre del Área</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Decanatura</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Academia</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>DECAT</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Administración</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Planificación y Desarrollo</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Consejo Directivo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Gráfica -->
+        <div class="chart-container">
+            <h2>Gráfica de Distribución</h2>
+            <canvas id="areaChart"></canvas>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Datos para la gráfica
+        const data = {
+            labels: ['Decanatura', 'Academia', 'DECAT', 'Administración', 'Planificación y Desarrollo', 'Consejo Directivo'],
+            datasets: [{
+                label: 'Distribución de Áreas',
+                data: [10, 15, 20, 25, 18, 12], // Ejemplo de datos
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(231, 233, 237, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(231, 233, 237, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // Configuración de la gráfica
+        const config = {
+            type: 'bar', // Cambiar a 'pie' o 'doughnut' si deseas otro tipo de gráfica
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Renderización de la gráfica
+        const ctx = document.getElementById('areaChart').getContext('2d');
+        new Chart(ctx, config);
+    </script>
+</body>
+</html>

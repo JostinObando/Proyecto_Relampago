@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dependencias - Gráficas y Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        .table-container {
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+            table th, table td {
+                border: 1px solid #ddd;
+                padding: 0.8rem;
+                text-align: left;
+            }
+
+            table th {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+        .chart-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Dependencias Institucionales</h1>
+    </header>
+    <main>
+        <!-- Tabla de dependencias -->
+        <div class="table-container">
+            <h2>Datos de Dependencias</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Dependencia</th>
+                        <th>Nombre de la Dependencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>30</td><td>Archivo Institucional</td></tr>
+                    <tr><td>29</td><td>Asesoría Legal</td></tr>
+                    <tr><td>21</td><td>Asistencia Técnica</td></tr>
+                    <tr><td>11</td><td>Biblioteca y Documentación</td></tr>
+                    <tr><td>19</td><td>Carrera de Turismo</td></tr>
+                    <tr><td>18</td><td>Carrera Investigación Criminal</td></tr>
+                    <tr><td>20</td><td>Carrera Mecánica Dental</td></tr>
+                    <tr><td>22</td><td>CETE</td></tr>
+                    <tr><td>6</td><td>Comunicación y Relaciones públicas</td></tr>
+                    <tr><td>23</td><td>Contraloria de Servicios</td></tr>
+                    <tr><td>24</td><td>Decanatura</td></tr>
+                    <tr><td>5</td><td>Departamento de Registro</td></tr>
+                    <tr><td>31</td><td>Departamento Financiero</td></tr>
+                    <tr><td>17</td><td>Dirección Académica</td></tr>
+                    <tr><td>34</td><td>Dirección Administrativa Financiera</td></tr>
+                    <tr><td>25</td><td>Dirección de Planificación y Desarrollo</td></tr>
+                    <tr><td>1</td><td>Educación Comunitaria</td></tr>
+                    <tr><td>2</td><td>Gestión Institucional del Recurso Humano</td></tr>
+                    <tr><td>10</td><td>Oficina de Asesoría Psicoeducativa</td></tr>
+                    <tr><td>32</td><td>Oficina de Control Interno y Riesgos</td></tr>
+                    <tr><td>28</td><td>Oficina de Control y Seguimiento Estratégico</td></tr>
+                    <tr><td>27</td><td>Oficina de Formulación y Evaluación de Presupuesto</td></tr>
+                    <tr><td>36</td><td>Oficina de Gestión Organizacional</td></tr>
+                    <tr><td>26</td><td>Oficina de Investigación</td></tr>
+                    <tr><td>13</td><td>Oficina de Promoción Cultural</td></tr>
+                    <tr><td>9</td><td>Oficina de Psicología</td></tr>
+                    <tr><td>3</td><td>Oficina de Trabajo Social</td></tr>
+                    <tr><td>15</td><td>Oficina de Vinculación con la Empresa</td></tr>
+                    <tr><td>14</td><td>Oficina Deportiva</td></tr>
+                    <tr><td>12</td><td>Oficina Médica</td></tr>
+                    <tr><td>16</td><td>Parqueo Institucional</td></tr>
+                    <tr><td>33</td><td>Proveeduría</td></tr>
+                    <tr><td>35</td><td>Seguridad Ocupacional</td></tr>
+                    <tr><td>4</td><td>Servicios Operativos</td></tr>
+                    <tr><td>8</td><td>Tecnología Informática</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Gráfica -->
+        <div class="chart-container">
+            <h2>Gráfica de Distribución por Dependencia</h2>
+            <canvas id="dependenciaChart"></canvas>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Datos para la gráfica
+        const data = {
+            labels: [
+                'Archivo Institucional', 'Asesoría Legal', 'Asistencia Técnica', 'Biblioteca y Documentación',
+                'Carrera de Turismo', 'Carrera Investigación Criminal', 'Carrera Mecánica Dental', 'CETE',
+                'Comunicación y Relaciones públicas', 'Contraloria de Servicios', 'Decanatura', 'Departamento de Registro',
+                'Departamento Financiero', 'Dirección Académica', 'Dirección Administrativa Financiera',
+                'Dirección de Planificación y Desarrollo', 'Educación Comunitaria', 'Gestión Institucional del Recurso Humano',
+                'Oficina de Asesoría Psicoeducativa', 'Oficina de Control Interno y Riesgos', 'Oficina de Control y Seguimiento Estratégico',
+                'Oficina de Formulación y Evaluación de Presupuesto', 'Oficina de Gestión Organizacional', 'Oficina de Investigación',
+                'Oficina de Promoción Cultural', 'Oficina de Psicología', 'Oficina de Trabajo Social',
+                'Oficina de Vinculación con la Empresa', 'Oficina Deportiva', 'Oficina Médica', 'Parqueo Institucional',
+                'Proveeduría', 'Seguridad Ocupacional', 'Servicios Operativos', 'Tecnología Informática'
+            ],
+            datasets: [{
+                label: 'Distribución de Dependencias',
+                data: [5, 3, 2, 4, 5, 6, 2, 3, 4, 4, 2, 1, 4, 3, 3, 2, 5, 6, 4, 5, 2, 4, 3, 6, 3, 2, 4, 3, 2, 5, 2, 3], // Datos de ejemplo
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(231, 233, 237, 0.6)',
+                    'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)', 'rgba(231, 233, 237, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)',
+                    'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(231, 233, 237, 0.6)',
+                    'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)', 'rgba(231, 233, 237, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)',
+                    'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(231, 233, 237, 0.6)',
+                    'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(231, 233, 237, 1)',
+                    'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)', 'rgba(231, 233, 237, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)',
+                    'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(231, 233, 237, 1)',
+                    'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)', 'rgba(231, 233, 237, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)',
+                    'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(231, 233, 237, 1)',
+                    'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // Configuración de la gráfica
+        const config = {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' unidades';
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Crear la gráfica
+        const dependenciaChart = new Chart(
+            document.getElementById('dependenciaChart'),
+            config
+        );
+    </script>
+</body>
+</html>

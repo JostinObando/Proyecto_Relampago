@@ -121,8 +121,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AreaController.cs" />
+    <Compile Include="Controllers\AreasController.cs" />
+    <Compile Include="Controllers\DependeciasController.cs" />
+    <Compile Include="Controllers\EstrategiaController.cs" />
     <Compile Include="Controllers\GraficaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MacroServiciosController.cs" />
+    <Compile Include="Controllers\ProcedimientosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -180,10 +185,15 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Area\Areas.cshtml" />
+    <Content Include="Views\Areas\Areas.cshtml" />
+    <Content Include="Views\Dependecias\Dependecias.cshtml" />
+    <Content Include="Views\Estrategia\Estrategia.cshtml" />
+    <Content Include="Views\MacroServicios\MacroServicios.cshtml" />
+    <Content Include="Views\Procedimientos\Procedimientos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Area\" />
     <Folder Include="Views\Grafica\" />
   </ItemGroup>
   <ItemGroup>
