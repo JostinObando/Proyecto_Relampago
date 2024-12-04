@@ -1,0 +1,19 @@
+﻿@model Proyecto_Relampago.Models.Macroproceso
+
+<h2>Eliminar Macroproceso</h2>
+
+<div>
+    <h4>¿Está seguro que desea eliminar este macroproceso?</h4>
+    <dl class="dl-horizontal">
+        <dt>ID</dt>
+        <dd>@Model.idMacroproceso</dd>
+        <dt>Nombre</dt>
+        <dd>@Model.nombreMacroproceso</dd>
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Macroproceso", FormMethod.Post))
+    {
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="@Url.Action("Macroprocesos", "Macroproceso")" class="btn btn-secondary">Cancelar</a>
+    }
+</div>

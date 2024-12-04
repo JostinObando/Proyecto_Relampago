@@ -33,6 +33,28 @@ namespace Proyecto_Relampago.Controllers
             return View(areas);
         }
 
+        // Método para filtrar áreas con parámetros opcionales
+        public ActionResult AreasFiltro(string idArea = null, string nombreArea = null)
+        {
+            // Llamamos al método FiltrarAreas de la lógica de negocio
+            DataTable dtAreas = logicaArea.FiltrarAreas(idArea, nombreArea);
+            List<Area> areas = new List<Area>();
+
+            foreach (DataRow row in dtAreas.Rows)
+            {
+                Area area = new Area
+                {
+                    IdArea = row["IdArea"].ToString(),
+                    NombreArea = row["NombreArea"].ToString()
+                };
+
+                areas.Add(area);
+            }
+
+            return View(areas);
+        }
+
+
         // GET: Areas/Details/5
         public ActionResult Details(string id)
         {
@@ -129,6 +151,8 @@ namespace Proyecto_Relampago.Controllers
 
             return View(area);
         }
+
+
 
         // POST: Areas/Delete/5
         [HttpPost]

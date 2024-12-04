@@ -1,23 +1,74 @@
-﻿using System;
+﻿using Logica;
+using Proyecto_Relampago.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Proyecto_Relampago.Controllers
 {
     public class ProcedimientosController : Controller
     {
+        private Procedimientos_Logica logicaProcedimientos = new Procedimientos_Logica();
+
         // GET: Procedimientos
-        public ActionResult Procedimientos()
+        public ActionResult Index()
         {
-            return View();
+            DataTable dtProcedimientos = logicaProcedimientos.ObtenerTodosLosProcedimientos();
+            List<Procedimiento> procedimientos = new List<Procedimiento>();
+
+            foreach (DataRow row in dtProcedimientos.Rows)
+            {
+                Procedimiento procedimiento = new Procedimiento
+                {
+                    IdEje = row["idEje"].ToString(),
+                    IdArea = row["idArea"].ToString(),
+                    IdDependencia = row["idDependencia"].ToString(),
+                    TipoProcedimiento = row["tipoProcedimiento"].ToString(),
+                    Estado = row["estado"].ToString(),
+                    Teletrabajado = row["teletrabajado"].ToString(),
+                    IdMacroproceso = row["idMacroproceso"].ToString(),
+                    IdEjeEstrategico = row["idEjeEstrategico"].ToString(),
+                    TipoDocumento = row["tipoDocumento"].ToString(),
+                    NombreProcedimiento = row["nombreProcedimiento"].ToString(),
+                    ApoyoTecnologico = row["apoyoTecnologico"].ToString(),
+                    AnioActualizacion = row["anioActualizacion"].ToString()
+                };
+
+                procedimientos.Add(procedimiento);
+            }
+
+            return View(procedimientos);
         }
 
         // GET: Procedimientos/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var dataTable = logicaProcedimientos.ObtenerProcedimientoPorId(id);
+            if (dataTable.Rows.Count == 0)
+            {
+                return HttpNotFound();
+            }
+
+            var row = dataTable.Rows[0];
+            Procedimiento procedimiento = new Procedimiento
+            {
+                IdEje = row["idEje"].ToString(),
+                IdArea = row["idArea"].ToString(),
+                IdDependencia = row["idDependencia"].ToString(),
+                TipoProcedimiento = row["tipoProcedimiento"].ToString(),
+                Estado = row["estado"].ToString(),
+                Teletrabajado = row["teletrabajado"].ToString(),
+                IdMacroproceso = row["idMacroproceso"].ToString(),
+                IdEjeEstrategico = row["idEjeEstrategico"].ToString(),
+                TipoDocumento = row["tipoDocumento"].ToString(),
+                NombreProcedimiento = row["nombreProcedimiento"].ToString(),
+                ApoyoTecnologico = row["apoyoTecnologico"].ToString(),
+                AnioActualizacion = row["anioActualizacion"].ToString()
+            };
+
+            return View(procedimiento);
         }
 
         // GET: Procedimientos/Create
@@ -28,60 +79,135 @@ namespace Proyecto_Relampago.Controllers
 
         // POST: Procedimientos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Procedimiento procedimiento)
         {
             try
             {
-                // TODO: Add insert logic here
+                logicaProcedimientos.AgregarProcedimiento(
+                    procedimiento.IdEje,
+                    procedimiento.IdArea,
+                    procedimiento.IdDependencia,
+                    procedimiento.TipoProcedimiento,
+                    procedimiento.Estado,
+                    procedimiento.Teletrabajado,
+                    procedimiento.IdMacroproceso,
+                    procedimiento.IdEjeEstrategico,
+                    procedimiento.TipoDocumento,
+                    procedimiento.NombreProcedimiento,
+                    procedimiento.ApoyoTecnologico,
+                    procedimiento.AnioActualizacion
+                );
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View(procedimiento);
             }
         }
 
         // GET: Procedimientos/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
-            return View();
+            var dataTable = logicaProcedimientos.ObtenerProcedimientoPorId(id);
+            if (dataTable.Rows.Count == 0)
+            {
+                return HttpNotFound();
+            }
+
+            var row = dataTable.Rows[0];
+            Procedimiento procedimiento = new Procedimiento
+            {
+                IdEje = row["idEje"].ToString(),
+                IdArea = row["idArea"].ToString(),
+                IdDependencia = row["idDependencia"].ToString(),
+                TipoProcedimiento = row["tipoProcedimiento"].ToString(),
+                Estado = row["estado"].ToString(),
+                Teletrabajado = row["teletrabajado"].ToString(),
+                IdMacroproceso = row["idMacroproceso"].ToString(),
+                IdEjeEstrategico = row["idEjeEstrategico"].ToString(),
+                TipoDocumento = row["tipoDocumento"].ToString(),
+                NombreProcedimiento = row["nombreProcedimiento"].ToString(),
+                ApoyoTecnologico = row["apoyoTecnologico"].ToString(),
+                AnioActualizacion = row["anioActualizacion"].ToString()
+            };
+
+            return View(procedimiento);
         }
 
         // POST: Procedimientos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Procedimiento procedimiento)
         {
             try
             {
-                // TODO: Add update logic here
+                logicaProcedimientos.EditarProcedimiento(
+                    procedimiento.IdEje,
+                    procedimiento.IdArea,
+                    procedimiento.IdDependencia,
+                    procedimiento.TipoProcedimiento,
+                    procedimiento.Estado,
+                    procedimiento.Teletrabajado,
+                    procedimiento.IdMacroproceso,
+                    procedimiento.IdEjeEstrategico,
+                    procedimiento.TipoDocumento,
+                    procedimiento.NombreProcedimiento,
+                    procedimiento.ApoyoTecnologico,
+                    procedimiento.AnioActualizacion
+                );
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View(procedimiento);
             }
         }
 
         // GET: Procedimientos/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            var dataTable = logicaProcedimientos.ObtenerProcedimientoPorId(id);
+            if (dataTable.Rows.Count == 0)
+            {
+                return HttpNotFound();
+            }
+
+            var row = dataTable.Rows[0];
+            Procedimiento procedimiento = new Procedimiento
+            {
+                IdEje = row["idEje"].ToString(),
+                IdArea = row["idArea"].ToString(),
+                IdDependencia = row["idDependencia"].ToString(),
+                TipoProcedimiento = row["tipoProcedimiento"].ToString(),
+                Estado = row["estado"].ToString(),
+                Teletrabajado = row["teletrabajado"].ToString(),
+                IdMacroproceso = row["idMacroproceso"].ToString(),
+                IdEjeEstrategico = row["idEjeEstrategico"].ToString(),
+                TipoDocumento = row["tipoDocumento"].ToString(),
+                NombreProcedimiento = row["nombreProcedimiento"].ToString(),
+                ApoyoTecnologico = row["apoyoTecnologico"].ToString(),
+                AnioActualizacion = row["anioActualizacion"].ToString()
+            };
+
+            return View(procedimiento);
         }
 
         // POST: Procedimientos/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                logicaProcedimientos.EliminarProcedimiento(id);
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError("", ex.Message);
                 return View();
             }
         }

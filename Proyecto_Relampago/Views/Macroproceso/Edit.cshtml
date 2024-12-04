@@ -1,0 +1,17 @@
+﻿@model Proyecto_Relampago.Models.Macroproceso
+
+<h2>Editar Macroproceso</h2>
+
+@using (Html.BeginForm("Edit", "Macroproceso", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="idMacroproceso">ID</label>
+        @Html.TextBoxFor(model => model.idMacroproceso, new { @class = "form-control", @readonly = "readonly" })
+    </div>
+    <div class="form-group">
+        <label for="nombreMacroproceso">Nombre</label>
+        @Html.TextBoxFor(model => model.nombreMacroproceso, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a href="@Url.Action("Macroprocesos", "Macroproceso")" class="btn btn-secondary">Cancelar</a>
+}

@@ -1,0 +1,27 @@
+﻿@model Proyecto_Relampago.Models.EjeEstrategico
+
+@{
+    ViewBag.Title = "Eliminar Eje Estratégico";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h4>¿Estás seguro de que deseas eliminar este eje estratégico?</h4>
+<hr />
+
+<div>
+    <h4>Eje Estratégico</h4>
+    <dl class="dl-horizontal">
+        <dt>Id:</dt>
+        <dd>@Model.idEje</dd>
+        <dt>Nombre:</dt>
+        <dd>@Model.nombreEjeEstrategico</dd>
+    </dl>
+</div>
+
+@using (Html.BeginForm())
+{
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    @Html.ActionLink("Cancelar", "Estrategia", new { @class = "btn btn-default" })
+}
+

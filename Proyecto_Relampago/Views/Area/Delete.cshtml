@@ -1,0 +1,22 @@
+﻿@model Proyecto_Relampago.Models.Area
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<h2>Eliminar Área</h2>
+
+<p>¿Está seguro de que desea eliminar esta área?</p>
+
+<div>
+    <p><strong>Id:</strong> @Model.IdArea</p>
+    <p><strong>Nombre:</strong> @Model.NombreArea</p>
+</div>
+
+@using (Html.BeginForm("Delete", "Area", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.IdArea)
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+}
+
+<a href="@Url.Action("Areas", "Area")" class="btn btn-secondary">Cancelar</a>

@@ -1,0 +1,17 @@
+﻿@model Proyecto_Relampago.Models.Macroproceso
+
+<h2>Crear Nuevo Macroproceso</h2>
+
+@using (Html.BeginForm("Create", "Macroproceso", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="idMacroproceso">ID</label>
+        @Html.TextBoxFor(model => model.idMacroproceso, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="nombreMacroproceso">Nombre</label>
+        @Html.TextBoxFor(model => model.nombreMacroproceso, new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="@Url.Action("Macroprocesos", "Macroproceso")" class="btn btn-secondary">Cancelar</a>
+}

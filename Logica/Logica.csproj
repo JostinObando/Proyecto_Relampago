@@ -43,6 +43,10 @@
   <ItemGroup>
     <Compile Include="Area_Logica.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Dependencia_Logica.cs" />
+    <Compile Include="EjeEstrategico_Logica.cs" />
+    <Compile Include="Macroproceso_Logica.cs" />
+    <Compile Include="Procedimientos_Logica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

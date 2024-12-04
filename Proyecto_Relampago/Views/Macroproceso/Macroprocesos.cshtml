@@ -1,32 +1,34 @@
-﻿@model List<Proyecto_Relampago.Models.Area>
+﻿@model IEnumerable<Proyecto_Relampago.Models.Macroproceso>
 
-<h2 class="page-title">Listado de Áreas</h2>
+<h2 class="page-title">Macroprocesos</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Macroproceso")" class="btn btn-success">Crear Nuevo Macroproceso</a>
+</p>
 
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>Id</th>
+            <th>ID</th>
             <th>Nombre</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var area in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@area.IdArea</td>
-                <td>@area.NombreArea</td>
+                <td>@item.idMacroproceso</td>
+                <td>@item.nombreMacroproceso</td>
                 <td>
-                    <a href="@Url.Action("Details", "Area", new { id = area.IdArea })" class="btn btn-info btn-sm">Detalles</a> |
-                    <a href="@Url.Action("Edit", "Area", new { id = area.IdArea })" class="btn btn-warning btn-sm">Editar</a> |
-                    <a href="@Url.Action("Delete", "Area", new { id = area.IdArea })" class="btn btn-danger btn-sm">Eliminar</a>
+                    <a href="@Url.Action("Details", "Macroproceso", new { id = item.idMacroproceso })" class="btn btn-info btn-sm">Detalles</a>
+                    <a href="@Url.Action("Edit", "Macroproceso", new { id = item.idMacroproceso })" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="@Url.Action("Delete", "Macroproceso", new { id = item.idMacroproceso })" class="btn btn-danger btn-sm">Eliminar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<a href="@Url.Action("Create", "Area")" class="btn btn-success">Crear Nueva Área</a>
 
 <style>
     .page-title {

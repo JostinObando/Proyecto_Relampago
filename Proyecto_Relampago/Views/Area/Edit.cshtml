@@ -1,0 +1,25 @@
+﻿
+@model Proyecto_Relampago.Models.Area
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editar Área</h2>
+
+@using (Html.BeginForm("Edit", "Area", FormMethod.Post))
+{
+    <div class="form-group">
+        <label for="IdArea">Id del Área</label>
+        @Html.TextBoxFor(model => model.IdArea, new { @class = "form-control", @readonly = "readonly" })
+        @Html.ValidationMessageFor(model => model.IdArea)
+    </div>
+    <div class="form-group">
+        <label for="NombreArea">Nombre del Área</label>
+        @Html.TextBoxFor(model => model.NombreArea, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.NombreArea)
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+}
+
+<a href="@Url.Action("Areas", "Area")" class="btn btn-secondary">Volver</a>

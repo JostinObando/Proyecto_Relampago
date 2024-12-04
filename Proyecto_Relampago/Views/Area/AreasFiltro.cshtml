@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áreas - Gráficas y Datos</title>
+    <style>
+        /* Estilos CSS (sin cambios) */
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Áreas Institucionales</h1>
+    </header>
+    <main>
+        <!-- Filtro de Áreas -->
+        <div class="filter-container">
+            <h2>Filtrar Áreas</h2>
+            <form method="get" action="@Url.Action("AreasFiltro", "Area")">
+                <label for="idArea">ID Área:</label>
+                <input type="text" id="idArea" name="idArea" value="@Request.QueryString["idArea"]" />
+
+                <label for="nombreArea">Nombre Área:</label>
+                <input type="text" id="nombreArea" name="nombreArea" value="@Request.QueryString["nombreArea"]" />
+
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+
+        <!-- Tabla de datos -->
+        <div class="table-container">
+            <h2>Datos de Áreas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Área</th>
+                        <th>Nombre del Área</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var area in Model)
+                    {
+                        <tr>
+                            <td>@area.IdArea</td>
+                            <td>@area.NombreArea</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Gráfica -->
+        <div class="chart-container">
+            <h2>Gráfica de Distribución</h2>
+            <canvas id="areaChart"></canvas>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Datos para la gráfica
+        const data = {
+            labels: ['Decanatura', 'Academia', 'DECAT', 'Administración', 'Planificación y Desarrollo', 'Consejo Directivo'],
+            datasets: [{
+                label: 'Distribución de Áreas',
+                data: [10, 15, 20, 25, 18, 12], // Ejemplo de datos
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(231, 233, 237, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(231, 233, 237, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // Configuración de la gráfica
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Renderización de la gráfica
+        const ctx = document.getElementById('areaChart').getContext('2d');
+        new Chart(ctx, config);
+    </script>
+</body>
+</html>

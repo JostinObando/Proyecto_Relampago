@@ -1,0 +1,28 @@
+﻿@model Proyecto_Relampago.Models.Dependecia
+
+@{
+    ViewBag.Title = "Eliminar Dependencia";
+}
+
+<h2>Eliminar Dependencia</h2>
+
+<div class="alert alert-danger">
+    <p>¿Está seguro que desea eliminar esta dependencia?</p>
+</div>
+
+<div class="form-group">
+    <label>ID Dependencia:</label>
+    <p class="form-control-static">@Model.idDependencia</p>
+</div>
+
+<div class="form-group">
+    <label>Nombre Dependencia:</label>
+    <p class="form-control-static">@Model.nombreDependencia</p>
+</div>
+
+@using (Html.BeginForm("Delete", "Dependencia", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.idDependencia )
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    @Html.ActionLink("Cancelar", "Dependencias", null, new { @class = "btn btn-secondary" })
+}

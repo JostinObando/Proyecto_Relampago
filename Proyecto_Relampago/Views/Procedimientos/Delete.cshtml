@@ -1,0 +1,40 @@
+﻿@model Proyecto_Relampago.Models.Procedimiento
+
+@{
+    ViewBag.Title = "Eliminar Procedimiento";
+}
+
+<h2>Eliminar Procedimiento</h2>
+
+<h3>¿Estás seguro de que deseas eliminar este procedimiento?</h3>
+
+<div>
+    <h4>Procedimiento</h4>
+    <dl class="dl-horizontal">
+        <dt>ID Eje</dt>
+        <dd>@Html.DisplayFor(model => model.IdEje)</dd>
+
+        <dt>ID Area</dt>
+        <dd>@Html.DisplayFor(model => model.IdArea)</dd>
+
+        <dt>ID Dependencia</dt>
+        <dd>@Html.DisplayFor(model => model.IdDependencia)</dd>
+
+        <dt>Tipo Procedimiento</dt>
+        <dd>@Html.DisplayFor(model => model.TipoProcedimiento)</dd>
+
+        <dt>Estado</dt>
+        <dd>@Html.DisplayFor(model => model.Estado)</dd>
+    </dl>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
+            @Html.ActionLink("Volver", "Index", new { id = Model.IdEje }, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

@@ -49,6 +49,10 @@
     <Compile Include="Area_Datos.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="Dependecias_Datos.cs" />
+    <Compile Include="EjeEstrategico_Datos.cs" />
+    <Compile Include="MacroProceso_Data.cs" />
+    <Compile Include="Procedimientos_Datos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

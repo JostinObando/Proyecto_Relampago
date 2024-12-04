@@ -1,0 +1,132 @@
+﻿@model Proyecto_Relampago.Models.Procedimiento
+
+@{
+    ViewBag.Title = "Crear Procedimiento";
+}
+
+<h2>Crear Procedimiento</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Procedimiento</h4>
+        <hr />
+
+        <!-- Campo IdEje -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdEje, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdEje)
+                @Html.ValidationMessageFor(model => model.IdEje)
+            </div>
+        </div>
+
+        <!-- Campo IdArea -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdArea, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdArea)
+                @Html.ValidationMessageFor(model => model.IdArea)
+            </div>
+        </div>
+
+        <!-- Campo IdDependencia -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdDependencia, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdDependencia)
+                @Html.ValidationMessageFor(model => model.IdDependencia)
+            </div>
+        </div>
+
+        <!-- Campo TipoProcedimiento -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoProcedimiento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TipoProcedimiento)
+                @Html.ValidationMessageFor(model => model.TipoProcedimiento)
+            </div>
+        </div>
+
+        <!-- Campo NombreProcedimiento -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.NombreProcedimiento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NombreProcedimiento)
+                @Html.ValidationMessageFor(model => model.NombreProcedimiento)
+            </div>
+        </div>
+
+        <!-- Campo Estado -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Estado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Estado)
+                @Html.ValidationMessageFor(model => model.Estado)
+            </div>
+        </div>
+
+        <!-- Campo Teletrabajado -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.Teletrabajado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Teletrabajado)
+                @Html.ValidationMessageFor(model => model.Teletrabajado)
+            </div>
+        </div>
+
+        <!-- Campo IdMacroproceso -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdMacroproceso, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdMacroproceso)
+                @Html.ValidationMessageFor(model => model.IdMacroproceso)
+            </div>
+        </div>
+
+        <!-- Campo IdEjeEstrategico -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdEjeEstrategico, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdEjeEstrategico)
+                @Html.ValidationMessageFor(model => model.IdEjeEstrategico)
+            </div>
+        </div>
+
+        <!-- Campo TipoDocumento -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.TipoDocumento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TipoDocumento)
+                @Html.ValidationMessageFor(model => model.TipoDocumento)
+            </div>
+        </div>
+
+        <!-- Campo ApoyoTecnologico -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.ApoyoTecnologico, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ApoyoTecnologico)
+                @Html.ValidationMessageFor(model => model.ApoyoTecnologico)
+            </div>
+        </div>
+
+        <!-- Campo AnioActualizacion -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.AnioActualizacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnioActualizacion)
+                @Html.ValidationMessageFor(model => model.AnioActualizacion)
+            </div>
+        </div>
+
+        <!-- Botón de submit -->
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

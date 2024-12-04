@@ -1,89 +1,152 @@
-﻿using System;
+﻿using Logica;
+using Proyecto_Relampago.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace Proyecto_Relampago.Controllers
 {
-    public class DependeciasController : Controller
-    {
-        // GET: Dependecias
-        public ActionResult Dependecias()
-        {
-            return View();
-        }
 
-        // GET: Dependecias/Details/5
-        public ActionResult Details(int id)
+        public class DependenciaController : Controller
         {
-            return View();
-        }
+            private Dependencia_Logica logicaDependencia = new Dependencia_Logica();
 
-        // GET: Dependecias/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Dependecias/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
+            // GET: Dependencias
+            public ActionResult Dependencias()
             {
-                // TODO: Add insert logic here
+                DataTable dtDependencias = logicaDependencia.ObtenerTodasLasDependencias();
+                List<Dependecia> dependencias = new List<Dependecia>();
 
-                return RedirectToAction("Index");
+                foreach (DataRow row in dtDependencias.Rows)
+                {
+                    Dependecia dependencia = new Dependecia
+                    {
+                        idDependencia = row["idDependencia"].ToString(),
+                        nombreDependencia = row["nombreDependencia"].ToString()
+                    };
+
+                    dependencias.Add(dependencia);
+                }
+
+                return View(dependencias);
             }
-            catch
+
+            // GET: Dependencias/Details/5
+            public ActionResult Details(string id)
+            {
+                var dataTable = logicaDependencia.ObtenerDependenciaPorId(id);
+                if (dataTable.Rows.Count == 0)
+                {
+                    return HttpNotFound();
+                }
+
+                var row = dataTable.Rows[0];
+                Dependecia dependencia = new Dependecia
+                {
+                    idDependencia = row["idDependencia"].ToString(),
+                    nombreDependencia = row["nombreDependencia"].ToString()
+                };
+
+                return View(dependencia);
+            }
+
+            // GET: Dependencias/Create
+            public ActionResult Create()
             {
                 return View();
             }
-        }
 
-        // GET: Dependecias/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Dependecias/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
+            // POST: Dependencias/Create
+            [HttpPost]
+            public ActionResult Create(Dependecia dependencia)
             {
-                // TODO: Add update logic here
+                try
+                {
+                    logicaDependencia.AgregarDependencia(dependencia.idDependencia, dependencia.nombreDependencia);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Dependencias");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return View(dependencia);
+                }
             }
-            catch
+
+            // GET: Dependencias/Edit/5
+            public ActionResult Edit(string id)
             {
-                return View();
+                var dataTable = logicaDependencia.ObtenerDependenciaPorId(id);
+                if (dataTable.Rows.Count == 0)
+                {
+                    return HttpNotFound();
+                }
+
+                var row = dataTable.Rows[0];
+                Dependecia dependencia = new Dependecia
+                {
+                    idDependencia = row["idDependencia"].ToString(),
+                    nombreDependencia = row["nombreDependencia"].ToString()
+                };
+
+                return View(dependencia);
             }
-        }
 
-        // GET: Dependecias/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Dependecias/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            // POST: Dependencias/Edit/5
+            [HttpPost]
+            public ActionResult Edit(Dependecia dependencia)
             {
-                // TODO: Add delete logic here
+                try
+                {
+                    logicaDependencia.EditarDependencia(dependencia.idDependencia, dependencia.nombreDependencia);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Dependencias");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return View(dependencia);
+                }
             }
-            catch
+
+            // GET: Dependencias/Delete/5
+            public ActionResult Delete(string id)
             {
-                return View();
+                var dataTable = logicaDependencia.ObtenerDependenciaPorId(id);
+                if (dataTable.Rows.Count == 0)
+                {
+                    return HttpNotFound();
+                }
+
+                var row = dataTable.Rows[0];
+                Dependecia dependencia = new Dependecia
+                {
+                    idDependencia = row["idDependencia"].ToString(),
+                    nombreDependencia = row["nombreDependencia"].ToString()
+                };
+
+                return View(dependencia);
+            }
+
+            // POST: Dependencias/Delete/5
+            [HttpPost]
+            public ActionResult Delete(string id, FormCollection collection)
+            {
+                try
+                {
+                    logicaDependencia.EliminarDependencia(id);
+
+                    return RedirectToAction("Dependencias");
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return View();
+                }
             }
         }
     }
-}

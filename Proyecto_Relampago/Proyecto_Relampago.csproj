@@ -126,12 +126,17 @@
     <Compile Include="Controllers\EstrategiaController.cs" />
     <Compile Include="Controllers\GraficaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MacroprocesoController.cs" />
     <Compile Include="Controllers\MacroServiciosController.cs" />
     <Compile Include="Controllers\ProcedimientosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Area.cs" />
+    <Compile Include="Models\Dependecia.cs" />
+    <Compile Include="Models\EjeEstrategico.cs" />
+    <Compile Include="Models\Macroproceso.cs" />
+    <Compile Include="Models\Procedimientos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +196,25 @@
     <Content Include="Views\Estrategia\Estrategia.cshtml" />
     <Content Include="Views\MacroServicios\MacroServicios.cshtml" />
     <Content Include="Views\Procedimientos\Procedimientos.cshtml" />
+    <Content Include="Views\Area\Create.cshtml" />
+    <Content Include="Views\Area\Edit.cshtml" />
+    <Content Include="Views\Area\Delete.cshtml" />
+    <Content Include="Views\Dependencia\Dependencias.cshtml" />
+    <Content Include="Views\Dependencia\Create.cshtml" />
+    <Content Include="Views\Dependencia\Edit.cshtml" />
+    <Content Include="Views\Dependencia\Delete.cshtml" />
+    <Content Include="Views\Estrategia\Create.cshtml" />
+    <Content Include="Views\Estrategia\Edit.cshtml" />
+    <Content Include="Views\Estrategia\Delete.cshtml" />
+    <Content Include="Views\Macroproceso\Macroprocesos.cshtml" />
+    <Content Include="Views\Macroproceso\Create.cshtml" />
+    <Content Include="Views\Macroproceso\Edit.cshtml" />
+    <Content Include="Views\Macroproceso\Delete.cshtml" />
+    <Content Include="Views\Procedimientos\Index.cshtml" />
+    <Content Include="Views\Procedimientos\Create.cshtml" />
+    <Content Include="Views\Procedimientos\Edit.cshtml" />
+    <Content Include="Views\Procedimientos\Delete.cshtml" />
+    <Content Include="Views\Area\AreasFiltro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

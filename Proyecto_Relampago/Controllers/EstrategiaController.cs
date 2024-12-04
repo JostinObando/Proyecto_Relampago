@@ -1,87 +1,147 @@
-﻿using System;
+﻿using Logica;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using Proyecto_Relampago.Models;
 namespace Proyecto_Relampago.Controllers
 {
     public class EstrategiaController : Controller
     {
         // GET: Estrategia
+        private EjeEstrategico_Logica logicaEjeEstrategico = new EjeEstrategico_Logica();
         public ActionResult Estrategia()
         {
-            return View();
+            DataTable dtEjesEstrategicos = logicaEjeEstrategico.ObtenerTodosLosEjesEstrategicos();
+            List<EjeEstrategico> ejesEstrategicos = new List<EjeEstrategico>();
+
+            foreach (DataRow row in dtEjesEstrategicos.Rows)
+            {
+                EjeEstrategico ejeEstrategico = new EjeEstrategico
+                {
+                    idEje = row["idEje"].ToString(),
+                    nombreEjeEstrategico = row["nombreEjeEstrategico"].ToString()
+                };
+
+                ejesEstrategicos.Add(ejeEstrategico);
+            }
+
+            return View(ejesEstrategicos);
         }
 
-        // GET: Estrategia/Details/5
-        public ActionResult Details(int id)
+        // GET: EjeEstrategicos/Details/5
+        public ActionResult Details(string id)
         {
-            return View();
+            var dataTable = logicaEjeEstrategico.ObtenerEjeEstrategicoPorId(id);
+            if (dataTable.Rows.Count == 0)
+            {
+                return HttpNotFound();
+            }
+
+            var row = dataTable.Rows[0];
+            EjeEstrategico ejeEstrategico = new EjeEstrategico
+            {
+                idEje = row["idEje"].ToString(),
+                nombreEjeEstrategico = row["nombreEjeEstrategico"].ToString()
+            };
+
+            return View(ejeEstrategico);
         }
 
-        // GET: Estrategia/Create
+        // GET: EjeEstrategicos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Estrategia/Create
+        // POST: EjeEstrategicos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(EjeEstrategico ejeEstrategico)
         {
             try
             {
-                // TODO: Add insert logic here
+                logicaEjeEstrategico.AgregarEjeEstrategico(ejeEstrategico.idEje, ejeEstrategico.nombreEjeEstrategico);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Estrategia");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View(ejeEstrategico);
             }
         }
 
-        // GET: Estrategia/Edit/5
-        public ActionResult Edit(int id)
+        // GET: EjeEstrategicos/Edit/5
+        public ActionResult Edit(string id)
         {
-            return View();
+            var dataTable = logicaEjeEstrategico.ObtenerEjeEstrategicoPorId(id);
+            if (dataTable.Rows.Count == 0)
+            {
+                return HttpNotFound();
+            }
+
+            var row = dataTable.Rows[0];
+            EjeEstrategico ejeEstrategico = new EjeEstrategico
+            {
+                idEje = row["idEje"].ToString(),
+                nombreEjeEstrategico = row["nombreEjeEstrategico"].ToString()
+            };
+
+            return View(ejeEstrategico);
         }
 
-        // POST: Estrategia/Edit/5
+        // POST: EjeEstrategicos/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(EjeEstrategico ejeEstrategico)
         {
             try
             {
-                // TODO: Add update logic here
+                logicaEjeEstrategico.EditarEjeEstrategico(ejeEstrategico.idEje, ejeEstrategico.nombreEjeEstrategico);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Estrategia");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ModelState.AddModelError("", ex.Message);
+                return View(ejeEstrategico);
             }
         }
 
-        // GET: Estrategia/Delete/5
-        public ActionResult Delete(int id)
+        // GET: EjeEstrategicos/Delete/5
+        public ActionResult Delete(string id)
         {
-            return View();
+            var dataTable = logicaEjeEstrategico.ObtenerEjeEstrategicoPorId(id);
+            if (dataTable.Rows.Count == 0)
+            {
+                return HttpNotFound();
+            }
+
+            var row = dataTable.Rows[0];
+            EjeEstrategico ejeEstrategico = new EjeEstrategico
+            {
+                idEje = row["idEje"].ToString(),
+                nombreEjeEstrategico = row["nombreEjeEstrategico"].ToString()
+            };
+
+            return View(ejeEstrategico);
         }
 
-        // POST: Estrategia/Delete/5
+        // POST: EjeEstrategicos/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                logicaEjeEstrategico.EliminarEjeEstrategico(id);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Estrategia");
             }
-            catch
+            catch (Exception ex)
             {
+                ModelState.AddModelError("", ex.Message);
                 return View();
             }
         }

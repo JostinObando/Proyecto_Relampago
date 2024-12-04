@@ -1,0 +1,25 @@
+﻿@model Proyecto_Relampago.Models.Dependecia
+
+@{
+    ViewBag.Title = "Editar Dependencia";
+}
+
+<h2>Editar Dependencia</h2>
+
+@using (Html.BeginForm("Edit", "Dependencia", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.idDependencia)
+        @Html.TextBoxFor(model => model.idDependencia, new { @class = "form-control", @readonly = "readonly" })
+        @Html.ValidationMessageFor(model => model.idDependencia)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.nombreDependencia)
+        @Html.TextBoxFor(model => model.nombreDependencia, new { @class = "form-control", placeholder = "Ingrese el nuevo nombre de la Dependencia" })
+        @Html.ValidationMessageFor(model => model.nombreDependencia)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    @Html.ActionLink("Cancelar", "Dependencias", null, new { @class = "btn btn-secondary" })
+}

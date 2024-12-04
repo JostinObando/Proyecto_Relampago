@@ -1,32 +1,44 @@
-﻿@model List<Proyecto_Relampago.Models.Area>
+﻿@model IEnumerable<Proyecto_Relampago.Models.Procedimiento>
 
-<h2 class="page-title">Listado de Áreas</h2>
+@{
+    ViewBag.Title = "Procedimientos";
+}
+
+<h2 class="page-title">Procedimientos</h2>
+
+<p>
+    @Html.ActionLink("Crear Nuevo Procedimiento", "Create", null, new { @class = "btn btn-success" })
+</p>
 
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Nombre</th>
+            <th>ID Eje</th>
+            <th>ID Area</th>
+            <th>ID Dependencia</th>
+            <th>Tipo Procedimiento</th>
+            <th>Nombre Procedimiento</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var area in Model)
+        @foreach (var procedimiento in Model)
         {
             <tr>
-                <td>@area.IdArea</td>
-                <td>@area.NombreArea</td>
+                <td>@Html.DisplayFor(modelItem => procedimiento.IdEje)</td>
+                <td>@Html.DisplayFor(modelItem => procedimiento.IdArea)</td>
+                <td>@Html.DisplayFor(modelItem => procedimiento.IdDependencia)</td>
+                <td>@Html.DisplayFor(modelItem => procedimiento.TipoProcedimiento)</td>
+                <td>@Html.DisplayFor(modelItem => procedimiento.NombreProcedimiento)</td>
                 <td>
-                    <a href="@Url.Action("Details", "Area", new { id = area.IdArea })" class="btn btn-info btn-sm">Detalles</a> |
-                    <a href="@Url.Action("Edit", "Area", new { id = area.IdArea })" class="btn btn-warning btn-sm">Editar</a> |
-                    <a href="@Url.Action("Delete", "Area", new { id = area.IdArea })" class="btn btn-danger btn-sm">Eliminar</a>
+                    @Html.ActionLink("Detalles", "Details", new { id = procedimiento.IdEje }, new { @class = "btn btn-info btn-sm" }) |
+                    @Html.ActionLink("Editar", "Edit", new { id = procedimiento.IdEje }, new { @class = "btn btn-warning btn-sm" }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = procedimiento.IdEje }, new { @class = "btn btn-danger btn-sm" })
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-<a href="@Url.Action("Create", "Area")" class="btn btn-success">Crear Nueva Área</a>
 
 <style>
     .page-title {
