@@ -11,31 +11,31 @@ using System.Web.Mvc;
 namespace Proyecto_Relampago.Controllers
 {
 
-        public class DependenciaController : Controller
+    public class DependenciaController : Controller
+    {
+        private Dependencia_Logica logicaDependencia = new Dependencia_Logica();
+
+        // GET: Dependencias
+        public ActionResult Dependencias()
         {
-            private Dependencia_Logica logicaDependencia = new Dependencia_Logica();
+            DataTable dtDependencias = logicaDependencia.ObtenerTodasLasDependencias();
+            List<Dependecia> dependencias = new List<Dependecia>();
 
-            // GET: Dependencias
-            public ActionResult Dependencias()
+            foreach (DataRow row in dtDependencias.Rows)
             {
-                DataTable dtDependencias = logicaDependencia.ObtenerTodasLasDependencias();
-                List<Dependecia> dependencias = new List<Dependecia>();
-
-                foreach (DataRow row in dtDependencias.Rows)
+                Dependecia dependencia = new Dependecia
                 {
-                    Dependecia dependencia = new Dependecia
-                    {
-                        idDependencia = row["idDependencia"].ToString(),
-                        nombreDependencia = row["nombreDependencia"].ToString()
-                    };
+                    idDependencia = row["idDependencia"].ToString(),
+                    nombreDependencia = row["nombreDependencia"].ToString()
+                };
 
-                    dependencias.Add(dependencia);
-                }
-
-                return View(dependencias);
+                dependencias.Add(dependencia);
             }
 
+            return View(dependencias);
+        }
 
+    
 
         public ActionResult DependenciasFiltro(string idDependencia = null, string nombreDependencia = null)
         {
