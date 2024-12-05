@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacroProceso - Gráficas y Datos</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e6e3e3;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #49797f;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* Contenedor principal */
+        main {
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Estilos del contenedor de filtro */
+        .filter-container {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+            .filter-container h2 {
+                color: #49797f;
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+            .filter-container form {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .filter-container label {
+                font-size: 14px;
+                color: #555;
+                flex-basis: 100%;
+            }
+
+            .filter-container input {
+                padding: 10px;
+                font-size: 14px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                width: 100%;
+            }
+
+            .filter-container button {
+                background-color: #49797f;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                border-radius: 4px;
+                cursor: pointer;
+                width: 100%;
+                margin-top: 15px;
+            }
+
+                .filter-container button:hover {
+                    background-color: #49797f;
+                }
+
+        /* Estilos de la tabla */
+        .table-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+            .table-container h2 {
+                color: #49797f;
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            table th, table td {
+                padding: 12px;
+                text-align: left;
+                border: 1px solid #ddd;
+            }
+
+            table th {
+                background-color: #49797f;
+                color: white;
+            }
+
+            table tr:nth-child(even) {
+                background-color: #f5f5f5;
+            }
+
+            table tr:hover {
+                background-color: #808080;
+            }
+
+        /* Estilos del contenedor de la gráfica */
+        .chart-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+            .chart-container h2 {
+                color: #49797f;
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+
+        /* Responsividad */
+        screen and (max-width: 768px) {
+            .filter-container form
+
+        {
+            flex-direction: column;
+        }
+
+        .filter-container button {
+            width: auto;
+        }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MacroProceso Institucionales</h1>
+    </header>
+    <main>
+        <!-- Filtro de Áreas -->
+        <div class="filter-container">
+            <h2>Filtrar Dependecias</h2>
+            <form method="get" action="@Url.Action("MacroprocesoFiltro", "Macroproceso")">
+                <label for="idMacroproceso">idMacroproceso:</label>
+                <input type="text" id="idMacroproceso" name="idMacroproceso" value="@Request.QueryString["idMacroproceso"]" />
+
+                <label for="nombreMacroproceso">nombreMacroproceso:</label>
+                <input type="text" id="nombreMacroproceso" name="nombreMacroproceso" value="@Request.QueryString["nombreMacroproceso"]" />
+                <button type="submit">Filtrar</button>
+            </form>
+        </div>
+
+        <!-- Tabla de datos -->
+        <div class="table-container">
+            <h2>Datos de MacroProceso</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>id Macroproceso</th>
+                        <th>Nombre Macroproceso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var macroprocesos in Model)
+                    {
+                        <tr>
+                            <td>@macroprocesos.idMacroproceso</td>
+                            <td>@macroprocesos.nombreMacroproceso</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Gráfica -->
+        <div class="chart-container">
+            <h2>Gráfica de MacroProceso</h2>
+            <canvas id="areaChart"></canvas>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Datos para la gráfica
+        const data = {
+            labels: [
+                'Archivo Institucional', 'Asesoría Legal', 'Asistencia Técnica', 'Biblioteca y Documentación',
+                'Carrera de Turismo', 'Carrera Investigación Criminal', 'Carrera Mecánica Dental', 'CETE',
+                'Comunicación y Relaciones públicas', 'Contraloria de Servicios', 'Decanatura', 'Departamento de Registro',
+                'Departamento Financiero', 'Dirección Académica', 'Dirección Administrativa Financiera',
+                'Dirección de Planificación y Desarrollo', 'Educación Comunitaria', 'Gestión Institucional del Recurso Humano',
+                'Oficina de Asesoría Psicoeducativa', 'Oficina de Control Interno y Riesgos', 'Oficina de Control y Seguimiento Estratégico',
+                'Oficina de Formulación y Evaluación de Presupuesto', 'Oficina de Gestión Organizacional', 'Oficina de Investigación',
+                'Oficina de Promoción Cultural', 'Oficina de Psicología', 'Oficina de Trabajo Social',
+                'Oficina de Vinculación con la Empresa', 'Oficina Deportiva', 'Oficina Médica', 'Parqueo Institucional',
+                'Proveeduría', 'Seguridad Ocupacional', 'Servicios Operativos', 'Tecnología Informática'
+            ],
+            datasets: [{
+                label: 'Distribución de Dependencias',
+                data: [5, 3, 2, 4, 5, 6, 2, 3, 4, 4, 2, 1, 4, 3, 3, 2, 5, 6, 4, 5, 2, 4, 3, 6, 3, 2, 4, 3, 2, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(231, 233, 237, 0.6)',
+                    'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)', 'rgba(231, 233, 237, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)',
+                    'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(231, 233, 237, 0.6)',
+                    'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)', 'rgba(231, 233, 237, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)',
+                    'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(231, 233, 237, 0.6)',
+                    'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)', 'rgba(54, 162, 235, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(231, 233, 237, 1)',
+                    'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)', 'rgba(231, 233, 237, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)',
+                    'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(231, 233, 237, 1)',
+                    'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)', 'rgba(231, 233, 237, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)',
+                    'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(231, 233, 237, 1)',
+                    'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        // Configuración de la gráfica
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Renderización de la gráfica
+        const ctx = document.getElementById('areaChart').getContext('2d');
+        new Chart(ctx, config);
+    </script>
+</body>
+</html>
+
+
+

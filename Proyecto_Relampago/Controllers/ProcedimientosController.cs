@@ -42,6 +42,36 @@ namespace Proyecto_Relampago.Controllers
             return View(procedimientos);
         }
 
+        public ActionResult IndexFiltro(string idEje = null, string idArea = null, string tipoProcedimiento = null,
+            string estado = null, string anioActualizacion = null)
+        {
+            DataTable dtProcedimientos = logicaProcedimientos.ObtenerTodosLosProcedimientos();
+            List<Procedimiento> procedimientos = new List<Procedimiento>();
+
+            foreach (DataRow row in dtProcedimientos.Rows)
+            {
+                Procedimiento procedimiento = new Procedimiento
+                {
+                    IdEje = row["idEje"].ToString(),
+                    IdArea = row["idArea"].ToString(),
+                    IdDependencia = row["idDependencia"].ToString(),
+                    TipoProcedimiento = row["tipoProcedimiento"].ToString(),
+                    Estado = row["estado"].ToString(),
+                    Teletrabajado = row["teletrabajado"].ToString(),
+                    IdMacroproceso = row["idMacroproceso"].ToString(),
+                    IdEjeEstrategico = row["idEjeEstrategico"].ToString(),
+                    TipoDocumento = row["tipoDocumento"].ToString(),
+                    NombreProcedimiento = row["nombreProcedimiento"].ToString(),
+                    ApoyoTecnologico = row["apoyoTecnologico"].ToString(),
+                    AnioActualizacion = row["anioActualizacion"].ToString()
+                };
+
+                procedimientos.Add(procedimiento);
+            }
+
+            return View(procedimientos);
+        }
+
         // GET: Procedimientos/Details/5
         public ActionResult Details(string id)
         {

@@ -33,6 +33,24 @@ namespace Proyecto_Relampago.Controllers
             return View(macroprocesos);
         }
 
+        public ActionResult MacroprocesoFiltro(string idMacroproceso = null, string nombreMacroproceso = null)
+        {
+            DataTable dtMacroprocesos = logicaMacroproceso.ObtenerTodosLosMacroprocesos();
+            List<Macroproceso> macroprocesos = new List<Macroproceso>();
+
+            foreach (DataRow row in dtMacroprocesos.Rows)
+            {
+                Macroproceso macroproceso = new Macroproceso
+                {
+                    idMacroproceso = row["idMacroproceso"].ToString(),
+                    nombreMacroproceso = row["nombreMacroproceso"].ToString()
+                };
+
+                macroprocesos.Add(macroproceso);
+            }
+
+            return View(macroprocesos);
+        }
         // GET: Macroprocesos/Details/5
         public ActionResult Details(string id)
         {

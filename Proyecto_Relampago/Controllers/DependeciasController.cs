@@ -35,8 +35,33 @@ namespace Proyecto_Relampago.Controllers
                 return View(dependencias);
             }
 
-            // GET: Dependencias/Details/5
-            public ActionResult Details(string id)
+
+
+        public ActionResult DependenciasFiltro(string idDependencia = null, string nombreDependencia = null)
+        {
+            DataTable dtDependencias = logicaDependencia.FiltrarDependencias();
+            List<Dependecia> dependencias = new List<Dependecia>();
+
+            foreach (DataRow row in dtDependencias.Rows)
+            {
+                Dependecia dependencia = new Dependecia
+                {
+                    idDependencia = row["idDependencia"].ToString(),
+                    nombreDependencia = row["nombreDependencia"].ToString()
+                };
+
+                dependencias.Add(dependencia);
+            }
+
+            return View(dependencias);
+        }
+
+
+
+
+
+        // GET: Dependencias/Details/5
+        public ActionResult Details(string id)
             {
                 var dataTable = logicaDependencia.ObtenerDependenciaPorId(id);
                 if (dataTable.Rows.Count == 0)

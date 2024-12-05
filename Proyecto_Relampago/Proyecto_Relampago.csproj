@@ -215,6 +215,10 @@
     <Content Include="Views\Procedimientos\Edit.cshtml" />
     <Content Include="Views\Procedimientos\Delete.cshtml" />
     <Content Include="Views\Area\AreasFiltro.cshtml" />
+    <Content Include="Views\Dependencia\DependenciasFiltro.cshtml" />
+    <Content Include="Views\Macroproceso\MacroprocesoFiltro.cshtml" />
+    <Content Include="Views\Estrategia\EstrategiaFiltro.cshtml" />
+    <Content Include="Views\Procedimientos\IndexFiltro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -32,6 +32,25 @@ namespace Proyecto_Relampago.Controllers
             return View(ejesEstrategicos);
         }
 
+        public ActionResult EstrategiaFiltro()
+        {
+            DataTable dtEjesEstrategicos = logicaEjeEstrategico.FiltrarEjesEstrategicos();
+            List<EjeEstrategico> ejesEstrategicos = new List<EjeEstrategico>();
+
+            foreach (DataRow row in dtEjesEstrategicos.Rows)
+            {
+                EjeEstrategico ejeEstrategico = new EjeEstrategico
+                {
+                    idEje = row["idEje"].ToString(),
+                    nombreEjeEstrategico = row["nombreEjeEstrategico"].ToString()
+                };
+
+                ejesEstrategicos.Add(ejeEstrategico);
+            }
+
+            return View(ejesEstrategicos);
+        }
+
         // GET: EjeEstrategicos/Details/5
         public ActionResult Details(string id)
         {
@@ -73,6 +92,11 @@ namespace Proyecto_Relampago.Controllers
                 return View(ejeEstrategico);
             }
         }
+
+
+
+
+
 
         // GET: EjeEstrategicos/Edit/5
         public ActionResult Edit(string id)
